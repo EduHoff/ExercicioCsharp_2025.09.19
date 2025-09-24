@@ -1,6 +1,6 @@
 namespace ExercicioCsharp_20250919.Services;
 
-public class BrazilTaxService : taxService
+public class BrazilTaxService : ITaxService
 {
     public double tax(double amount)
     {

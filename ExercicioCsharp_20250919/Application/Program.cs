@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using ExercicioCsharp_20250919.Entities;
+using ExercicioCsharp_20250919.Services;
 
 namespace ExercicioCsharp_20250919.Application;
 
@@ -14,20 +15,20 @@ class Program
         DateTime start = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
         Console.WriteLine("Return (dd/MM/yyyy hh:mm): ");
         DateTime finish = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-
-        CarRental carRental = new CarRental(start, finish, new Vehicle(model));
-        
         
         Console.WriteLine("Enter price per hour: ");
-        
+        double hour = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
         Console.WriteLine("Enter price per day: ");
+        double day = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+        
+        CarRental carRental = new CarRental(start, finish, new Vehicle(model));
+
+        RentalService rentalService = new RentalService(hour, day, new BrazilTaxService());
+        
+        rentalService.processInvoice(carRental);
+       
         
         Console.WriteLine("INVOICE:");
-        Console.WriteLine("Basic payment: ");
-        Console.WriteLine("Tax: ");
-        Console.WriteLine("Total payment: ");
-       
-       
-        
+        Console.WriteLine(carRental.invoice);
     }
 }
